@@ -5,7 +5,7 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private long mobileNumber;
+	private String mobileNumber;
 	private String qualification;
 	private String address;
 	private String gender;
@@ -36,11 +36,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public long getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(long mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 

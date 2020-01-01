@@ -10,6 +10,15 @@
   	<url-pattern>/loginPage</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>displayProfile</servlet-name>
+  	<servlet-class>com.bridgeLabz.registration.servlet.DisplayLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>displayProfile</servlet-name>
+  	<url-pattern>/DisplayLoginServlet</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
   	<welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
