@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBConnection {
 	private static Connection conn = null;
 	private static final String DB_NAME = "durgasankar";
-	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/durgasankar";
+	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/" + DB_NAME;
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "@R20jc134";
 	

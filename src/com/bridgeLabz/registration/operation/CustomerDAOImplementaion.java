@@ -1,7 +1,6 @@
 package com.bridgeLabz.registration.operation;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +10,7 @@ import com.bridgeLabz.registration.model.Customer;
 import com.bridgeLabz.registration.service.CustomerDAO;
 
 public class CustomerDAOImplementaion implements CustomerDAO {
-
 	private static Connection conn;
-	private static PreparedStatement preparedStatement;
 	private static final String REGISTER_TABLE = "register";
 
 	// changes in create table query yet to be done in future
@@ -51,44 +48,25 @@ public class CustomerDAOImplementaion implements CustomerDAO {
 
 	// changes in get need to be done in future
 	@Override
-	public Customer getCustomer(String userName, String password) {
-		Customer customer = null;
+	public ResultSet getCustomer(String userName, String password) {
+		ResultSet resultSet = null;
 
 		try {
 			// check point
-//			System.out.println("user name " + userName);
-//			Class.forName("com.mysql.jdbc.Driver");
-//			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/durgasankar", "root",
-//					"@R20jc134");
 			conn = DBConnection.getConnection();
 			String fetchDataQuery = "select * from register where username = ? and password = ?";
-			preparedStatement = conn.prepareStatement(fetchDataQuery);
+			PreparedStatement preparedStatement = conn.prepareStatement(fetchDataQuery);
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, password);
-
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.first()) {
-				customer = new Customer();
-				while (resultSet.next()) {
-					customer.setFirstName(resultSet.getString(1));
-					customer.setLastName(resultSet.getString(2));
-					customer.setEmail(resultSet.getString(3));
-					customer.setMobileNumber(resultSet.getString(4));
-					customer.setQualification(resultSet.getString(5));
-					customer.setAddress(resultSet.getString(6));
-					customer.setGender(resultSet.getString(7));
-					customer.setUserName(resultSet.getString(8));
-					customer.setPassword(resultSet.getString(9));
-				}
-			}
-			// check point 1
-
+			resultSet = preparedStatement.executeQuery();
+			
 		} catch (SQLException e) {
 			System.out.println("Error Fetching data from Database " + e.getMessage());
 		}
-		// check point 2
-//		System.out.println("You are here" + customer.getLastName());
-		return customer;
+		return resultSet;
+
+		// check point -> all data is coming to return.
+
 	}
 
 }
