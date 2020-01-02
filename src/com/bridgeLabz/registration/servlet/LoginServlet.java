@@ -28,21 +28,24 @@ public class LoginServlet extends HttpServlet {
 		String inputUserName = req.getParameter("userName");
 		String inputPassword = req.getParameter("passWord");
 		fetchedResultSet = customerDAO.getCustomer(inputUserName, inputPassword);
-		HttpSession loginSession = req.getSession();
+//		HttpSession loginSession = req.getSession();
 		try {
 			if (fetchedResultSet.next()) {
+				HttpSession loginSession = req.getSession();
 				Customer customer = new Customer();
 				pw.println("Login Successful");
 				customer.setFirstName(fetchedResultSet.getString(1));
 				customer.setUserName(fetchedResultSet.getString(8));
 				customer.setPassword(fetchedResultSet.getString(9));
 				loginSession.setAttribute("userName", customer.getUserName());
-				req.setAttribute("firstName", customer.getUserName());
-				RequestDispatcher dispatcher = req.getRequestDispatcher("DisplayLoginServlet");
-				dispatcher.forward(req, resp);
+				//System.out.println(loginSession.getAttribute("userName"));
+				
+				resp.sendRedirect("profile.jsp");
+//				RequestDispatcher dispatcher = req.getRequestDispatcher("profile.jsp");
+//				dispatcher.forward(req, resp);
 
 			} else {
-				pw.println("Invalid user entry! Please enter valid Input...");
+				pw.println("<span style='color: red'>Invalid user entry! Please enter valid Input...</span>");
 				RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
 				dispatcher.include(req, resp);
 			}

@@ -42,6 +42,9 @@
 					<a href="registration.jsp">Registration</a>
 				</h4>
 			</div>
+			<%-- <span style="color: red">${errorMessage}</span> --%>
+			
+		
 		</form>
 	</div>
 </body>
