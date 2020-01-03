@@ -25,7 +25,7 @@
 <body>
 	<div id="userDetails">
 		<h1>Registration Form</h1>
-		<form action="RegistrationPage" method="post">
+		<form action="RegistrationPage" method="get">
 		
 		<!-- First name-->
 			<div class="inputDetails">
@@ -48,7 +48,7 @@
 		<!-- Phone number-->
 			<div class="inputDetails">
 				<label for="phoneNumber">Mobile Number: </label>
-				<input name="phoneNumber" type="text" placeholder="Mobile Number" id="phoneNumber" required>
+				<input name="phoneNumber" type="text"  placeholder="Mobile Number" id="phoneNumber" required>
 			</div>
 			
 		<!-- Qualification-->
@@ -66,8 +66,8 @@
 		<!-- Gender-->
   			<div class="inputDetails">
   				<label for="gender">Gender:
-  					<input type="radio" name="gender" value="male" id="gender">Male
- 					<input type="radio" name="gender" value="female" id="gender">Female	
+  					<input type="radio" name="gender" value="male" id="gender" required>Male
+ 					<input type="radio" name="gender" value="female" id="gender"required>Female	
   				</label>
   			</div>	
   			
@@ -97,7 +97,7 @@
 				<input name="termsAndCondition" type="checkbox" id="termsAndCondition" required> I Agree	
 			</div>
 				
-		<!-- login-->
+		<!-- register-->
 			<div class="inputDetails">
 				<p><input type="submit" value="Submit" name="register">
 			</div>

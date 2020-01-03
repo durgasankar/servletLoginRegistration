@@ -10,6 +10,7 @@
 	<h1>Welcome!</h1>
 	<form action="LogOutServlet" method="post">
 		<%
+			response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
 			HttpSession loginSession = request.getSession(false);
 			if (loginSession.getAttribute("userName") == null) {
 				response.sendRedirect("login.jsp");

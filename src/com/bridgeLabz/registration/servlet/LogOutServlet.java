@@ -19,12 +19,12 @@ public class LogOutServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		HttpSession loginSession = req.getSession(true);
 //		System.out.println("login session attri" + loginSession.getAttribute("userName"));
-		
-			out.println("<span style='color: green'>You are successfully logged out...Thank you Visit again</span>");
-			loginSession.removeAttribute("userName");
-			loginSession.invalidate();
-			RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");		
-			dispatcher.include(req, resp);
-			}
+		resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+		out.println("<span style='color: green'>You are successfully logged out...Thank you Visit again</span>");
+		loginSession.removeAttribute("userName");
+		loginSession.invalidate();
+		RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+		dispatcher.include(req, resp);
+	}
 
 }

@@ -24,16 +24,16 @@ public class LoginServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		ResultSet fetchedResultSet = null;
 		CustomerDAO customerDAO = new CustomerDAOImplementaion();
+		resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
 		PrintWriter pw = resp.getWriter();
 		String inputUserName = req.getParameter("userName");
 		String inputPassword = req.getParameter("passWord");
-		fetchedResultSet = customerDAO.getCustomer(inputUserName, inputPassword);
+		fetchedResultSet = customerDAO.getCustomer(inputUserName, inputPassword);	
 //		HttpSession loginSession = req.getSession();
 		try {
 			if (fetchedResultSet.next()) {
 				HttpSession loginSession = req.getSession();
 				Customer customer = new Customer();
-				pw.println("Login Successful");
 				customer.setFirstName(fetchedResultSet.getString(1));
 				customer.setUserName(fetchedResultSet.getString(8));
 				customer.setPassword(fetchedResultSet.getString(9));

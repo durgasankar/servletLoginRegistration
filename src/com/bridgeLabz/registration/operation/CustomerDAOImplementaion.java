@@ -19,29 +19,29 @@ public class CustomerDAOImplementaion implements CustomerDAO {
 		int insertedDataStatus = 0;
 		String insertQuery = "insert into " + REGISTER_TABLE
 				+ " (firstname,lastname,email,mobileNumber,qualification,address,gender,userName,password) values (?,?,?,?,?,?,?,?,?)";
-//		conn = DBConnection.getConnection();
-//		try {
+		conn = DBConnection.getConnection();
+		try {
 //			String url = "jdbc:mysql://localhost:3306/durgasankar?useSSL=false";
 //			String userName = "root";
 //			String password = "@R20jc134";
 //			Class.forName("com.mysql.cj.jdbc.Driver");
 //			Connection conn = DriverManager.getConnection(url, userName, password); 
-//			preparedStatement = conn.prepareStatement(insertQuery);
+			conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getEmail());
+			preparedStatement.setString(4, customer.getMobileNumber());
+			preparedStatement.setString(5, customer.getQualification());
+			preparedStatement.setString(6, customer.getAddress());
+			preparedStatement.setString(7, customer.getGender());
+			preparedStatement.setString(8, customer.getUserName());
+			preparedStatement.setString(9, customer.getPassword());
 
-//			preparedStatement.setString(1, customer.getFirstName());
-//			preparedStatement.setString(2, customer.getLastName());
-//			preparedStatement.setString(3, customer.getEmail());
-//			preparedStatement.setLong(4, customer.getMobileNumber());
-//			preparedStatement.setString(5, customer.getQualification());
-//			preparedStatement.setString(6, customer.getAddress());
-//			preparedStatement.setString(7, customer.getGender());
-//			preparedStatement.setString(8, customer.getUserName());
-//			preparedStatement.setString(9, customer.getPassword());
-//			insertedDataStatus = preparedStatement.executeUpdate();
-////			conn.close();
-//		} catch (SQLException e) {
-//			System.out.println("Error inserting data to database " + e.getMessage());
-//		}
+			insertedDataStatus = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error inserting data to database " + e.getMessage());
+		}
 
 		return insertedDataStatus;
 	}
@@ -59,7 +59,6 @@ public class CustomerDAOImplementaion implements CustomerDAO {
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
-			
 		} catch (SQLException e) {
 			System.out.println("Error Fetching data from Database " + e.getMessage());
 		}

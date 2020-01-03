@@ -10,7 +10,7 @@ public class DBConnection {
 	private static final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/" + DB_NAME;
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "@R20jc134";
-	
+
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -23,16 +23,5 @@ public class DBConnection {
 	public static Connection getConnection() {
 		return conn;
 
-	}
-	
-	public static void closeConnection() {
-		try {
-			if(conn != null) {
-				conn.close();
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("could not close connection " + e.getMessage());
-		}
 	}
 }
