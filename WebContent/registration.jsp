@@ -12,7 +12,8 @@
 		    margin-left: 100px;
 		}
 		.inputDetails input{
-		     margin-left: 0px;
+		     margin-left: 10px;
+		   	 margin-top: 10px;
 	
 		}
 		.inputDetails #gender {
@@ -67,7 +68,7 @@
   			<div class="inputDetails">
   				<label for="gender">Gender:
   					<input type="radio" name="gender" value="male" id="gender" required>Male
- 					<input type="radio" name="gender" value="female" id="gender"required>Female	
+ 					<input type="radio" name="gender" value="female" id="gender"required>Female
   				</label>
   			</div>	
   			
