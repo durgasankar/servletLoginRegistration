@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 		fetchedResultSet = customerDAO.getCustomer(inputUserName, inputPassword);
 		try {
 			if (fetchedResultSet.next()) {
-				// check point -> data fetching and storing in result set
+				// check point 2 -> data fetching and storing in result set
 				/**
 				 * Once the data is fetched from the user new session is created and data is
 				 * securely stored in the session and redirected to profile page.

@@ -14,7 +14,6 @@
 		.inputDetails input{
 		     margin-left: 10px;
 		   	 margin-top: 10px;
-	
 		}
 		.inputDetails #gender {
 		   margin-left: 5px;
@@ -26,7 +25,7 @@
 <body>
 	<div id="userDetails">
 		<h1>Registration Form</h1>
-		<form action="RegistrationPage" method="get">
+		<form action="RegistrationPage" method="post">
 		
 		<!-- First name-->
 			<div class="inputDetails">
@@ -57,7 +56,20 @@
 				<label for="qualification">Qualification: </label>
 				<input name="qualification" type="text" placeholder="Highest Qualification" id="qualification">
 			</div>
-			
+<!--			
+			<div class="inputDetails">
+				<label for="qualification">Qualification: </label>
+				<select id="qualification">
+  					<option value="Metric fail">Metric fail</option>
+  					<option value="Intermediate">Intermediate</option>
+  					<option value="Higher Secondary">Higher Secondary</option>
+  					<option value="Graduate">Graduate</option>
+  					<option value="Post Graduate">Post Graduate</option>
+  					<option value="secret">Not interested to say</option>
+  					
+				</select>
+			</div>
+-->			
 		<!-- Address-->
 			<div class="inputDetails">
 				<label for="address">Address: </label>

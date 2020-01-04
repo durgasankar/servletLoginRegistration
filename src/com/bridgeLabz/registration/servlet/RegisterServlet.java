@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bridgeLabz.registration.model.Customer;
 import com.bridgeLabz.registration.operation.CustomerDAOImplementaion;
+import com.bridgeLabz.registration.operation.ValidationImplementation;
 import com.bridgeLabz.registration.service.ICustomerDAO;
+import com.bridgeLabz.registration.service.IValidation;
 
 /**
  * This class gets the data from the user and validate the data with existing
@@ -26,7 +28,8 @@ import com.bridgeLabz.registration.service.ICustomerDAO;
 @SuppressWarnings("serial")
 public class RegisterServlet extends HttpServlet {
 	private static ICustomerDAO customerDAO = new CustomerDAOImplementaion();
-	
+	private static IValidation validation = new ValidationImplementation();
+
 	/**
 	 * gets the data from the user and validate the data with existing records of
 	 * database and after successful validation it enters the data to the database
@@ -34,9 +37,8 @@ public class RegisterServlet extends HttpServlet {
 	 * the user accordingly and redirect the user as per requirement page.
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html");
-		
 
 		PrintWriter pw = resp.getWriter();
 		/**
@@ -54,34 +56,70 @@ public class RegisterServlet extends HttpServlet {
 //		String inputConfirmPassword = req.getParameter("confirmPassword");
 
 		Customer newCustomer = new Customer();
-//		checkpoint -> 1 data fetching from user side
+//		check point 1 -> data fetching from user side.		
+
+//		if (validation.validateEmail(inputEmail)) {
+//			String validatedEmail = inputEmail;
+//			newCustomer.setEmail(validatedEmail);
+//		} else {
+//			pw.println("<span style='color: red'>Opps !!!Email already registered. Please register again :(</span>");
+//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
+//			dispatcher.forward(req, resp);
+//
+//		}
+//		if (validation.validatePhoneNumber(inputMobileNumber)) {
+//			String validatedPhone = inputMobileNumber;
+//			newCustomer.setMobileNumber(validatedPhone);
+//		} else {
+//			pw.println(
+//					"<span style='color: red'>Opps !!!Mobile Number already registered. Please register again :(</span>");
+//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
+//			dispatcher.forward(req, resp);
+//		}
+//		if (validation.validateUserName(inputUserName)) {
+//			String validatedUserName = inputUserName;
+//			newCustomer.setUserName(validatedUserName);
+//		} else {
+//			pw.println("<span style='color: red'>Opps !!!Username already registered. Please register again :(</span>");
+//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
+//			dispatcher.forward(req, resp);
+//		}
+
+//		checkpoint -> 2 data validating after fetching from user
 		/**
 		 * Sets the fetched data in a newCustomer object
 		 */
 		newCustomer.setFirstName(inputFirstName);
 		newCustomer.setLastName(inputLastName);
-		newCustomer.setEmail(inputEmail);
-		newCustomer.setMobileNumber(inputMobileNumber);
+		newCustomer.setEmail(validation.validateEmail(inputEmail));
+		newCustomer.setMobileNumber(validation.validatePhoneNumber(inputMobileNumber));
 		newCustomer.setQualification(inputQualification);
 		newCustomer.setAddress(inputAddress);
 		newCustomer.setGender(inputGender);
-		newCustomer.setUserName(inputUserName);
+		newCustomer.setUserName(validation.validateUserName(inputUserName));
 		newCustomer.setPassword(inputPassword);
 
 		/**
 		 * Validate the data with database and store it with database
 		 */
-
-		if (customerDAO.insertCustomer(newCustomer) >= 1) {
-//			checkpoint -> 2 Query working fine
-			pw.println("<span style='color: green'>User Registred successfully.</span>");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
-//			resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-			dispatcher.include(req, resp);
-		} else {
-			pw.println("<span style='color: red'>Opps !!! Please register again</span>");
+		if ((newCustomer.getEmail() == null) && (newCustomer.getMobileNumber() == null)
+				&& (newCustomer.getUserName() == null)) {
+			pw.println("<span style='color: red'>Opps !!!Duplicate Entry plz check phone number or email :(</span>");
 			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-			dispatcher.include(req, resp);
+			dispatcher.forward(req, resp);
+		} else {
+
+			if (customerDAO.insertCustomer(newCustomer) >= 1) {
+//			checkpoint -> 3 Query working fine
+				pw.println("<span style='color: green'>User Registred successfully. :)</span>");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+//			resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+				dispatcher.include(req, resp);
+			} else {
+				pw.println("<span style='color: red'>Opps !!! Please register again. :(</span>");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
+				dispatcher.include(req, resp);
+			}
 		}
 
 	}
