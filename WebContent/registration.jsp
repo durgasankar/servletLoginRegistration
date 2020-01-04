@@ -18,7 +18,14 @@
 		.inputDetails #gender {
 		   margin-left: 5px;
 		   padding-left: 50px; 
+		   background-color: #f1f1f1;
 		} 
+		.inputDetails #qualification {
+			margin-left: 10px;
+			margin-top: 10px;
+			background-color: #f1f1f1;
+			
+		}
 	</style>
 <title>Registration Page</title>
 </head>
@@ -50,26 +57,21 @@
 				<label for="phoneNumber">Mobile Number: </label>
 				<input name="phoneNumber" type="text"  placeholder="Mobile Number" id="phoneNumber" required>
 			</div>
-			
+		
 		<!-- Qualification-->
-			<div class="inputDetails">
-				<label for="qualification">Qualification: </label>
-				<input name="qualification" type="text" placeholder="Highest Qualification" id="qualification">
-			</div>
-<!--			
-			<div class="inputDetails">
-				<label for="qualification">Qualification: </label>
-				<select id="qualification">
+			<div class="inputDetails" >
+				<label for="qualification" >Qualification: </label>					
+				<select id="qualification" name="qualification">
+					<option selected="selected">qualification</option>			
   					<option value="Metric fail">Metric fail</option>
   					<option value="Intermediate">Intermediate</option>
   					<option value="Higher Secondary">Higher Secondary</option>
   					<option value="Graduate">Graduate</option>
   					<option value="Post Graduate">Post Graduate</option>
-  					<option value="secret">Not interested to say</option>
-  					
+  					<option value="secret">Not interested to say</option>						
 				</select>
 			</div>
--->			
+			
 		<!-- Address-->
 			<div class="inputDetails">
 				<label for="address">Address: </label>

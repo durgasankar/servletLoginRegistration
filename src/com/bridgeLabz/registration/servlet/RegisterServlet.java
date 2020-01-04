@@ -58,68 +58,54 @@ public class RegisterServlet extends HttpServlet {
 		Customer newCustomer = new Customer();
 //		check point 1 -> data fetching from user side.		
 
-//		if (validation.validateEmail(inputEmail)) {
-//			String validatedEmail = inputEmail;
-//			newCustomer.setEmail(validatedEmail);
-//		} else {
-//			pw.println("<span style='color: red'>Opps !!!Email already registered. Please register again :(</span>");
-//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-//			dispatcher.forward(req, resp);
-//
-//		}
-//		if (validation.validatePhoneNumber(inputMobileNumber)) {
-//			String validatedPhone = inputMobileNumber;
-//			newCustomer.setMobileNumber(validatedPhone);
-//		} else {
-//			pw.println(
-//					"<span style='color: red'>Opps !!!Mobile Number already registered. Please register again :(</span>");
-//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-//			dispatcher.forward(req, resp);
-//		}
-//		if (validation.validateUserName(inputUserName)) {
-//			String validatedUserName = inputUserName;
-//			newCustomer.setUserName(validatedUserName);
-//		} else {
-//			pw.println("<span style='color: red'>Opps !!!Username already registered. Please register again :(</span>");
-//			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-//			dispatcher.forward(req, resp);
-//		}
+		if (validation.isValidatingEmail(inputEmail)) {
+			String validatedEmail = inputEmail;
+			newCustomer.setEmail(validatedEmail);
+		} else {
+			pw.println("<span style='color: red'>Email already registered :(<br></span>");
+		}
+		if (validation.isValidatingPhoneNumber(inputMobileNumber)) {
+			String validatedPhone = inputMobileNumber;
+			newCustomer.setMobileNumber(validatedPhone);
+		} else {
+			pw.println("<span style='color: red'><br>Mobile Number already registered :(</span>");
+		}
+		if (validation.isValidatingUserName(inputUserName)) {
+			String validatedUserName = inputUserName;
+			newCustomer.setUserName(validatedUserName);
+		} else {
+			pw.println("<span style='color: red'><br>Username already registered :(</span>");
+		}
 
-//		checkpoint -> 2 data validating after fetching from user
+//		checkpoint -> 2 validation of fetched data
 		/**
 		 * Sets the fetched data in a newCustomer object
 		 */
 		newCustomer.setFirstName(inputFirstName);
 		newCustomer.setLastName(inputLastName);
-		newCustomer.setEmail(validation.validateEmail(inputEmail));
-		newCustomer.setMobileNumber(validation.validatePhoneNumber(inputMobileNumber));
+
 		newCustomer.setQualification(inputQualification);
 		newCustomer.setAddress(inputAddress);
 		newCustomer.setGender(inputGender);
-		newCustomer.setUserName(validation.validateUserName(inputUserName));
+
 		newCustomer.setPassword(inputPassword);
 
 		/**
 		 * Validate the data with database and store it with database
 		 */
-		if ((newCustomer.getEmail() == null) && (newCustomer.getMobileNumber() == null)
-				&& (newCustomer.getUserName() == null)) {
-			pw.println("<span style='color: red'>Opps !!!Duplicate Entry plz check phone number or email :(</span>");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-			dispatcher.forward(req, resp);
-		} else {
 
-			if (customerDAO.insertCustomer(newCustomer) >= 1) {
-//			checkpoint -> 3 Query working fine
-				pw.println("<span style='color: green'>User Registred successfully. :)</span>");
-				RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
-//			resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
-				dispatcher.include(req, resp);
-			} else {
-				pw.println("<span style='color: red'>Opps !!! Please register again. :(</span>");
-				RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
-				dispatcher.include(req, resp);
-			}
+		if ((newCustomer.getEmail() != null) && (newCustomer.getMobileNumber() != null)
+				&& (newCustomer.getUserName() != null) && (customerDAO.insertCustomer(newCustomer) >= 1)) {
+//		checkpoint -> 3 Query working fine
+			pw.println("<span style='color: green'>User Registred successfully. :)</span>");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+			// prevent back flow on back button press
+			resp.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+			dispatcher.include(req, resp);
+		} else {
+			pw.println("<span style='color: red'><br>Please register again. :(</span>");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("registration.jsp");
+			dispatcher.include(req, resp);
 		}
 
 	}
